@@ -6,12 +6,16 @@ main()
   
   while(!terminado)
   {
-    
-    while((msgrcv() == -1) && !primeraVez)
+	if(!primeravez)
     {
-      wait();
-    }
-    
+		wait();
+	
+		while(msgrcv() == -1)
+		{
+		  sleep(25);
+		}
+	}
+	
     procesarMensaje();
       
 
@@ -37,7 +41,7 @@ main()
     
     while(msgrcv() == -1)
     {
-      wait();
+      sleep(25);
     }
     
     procesarMensaje();
