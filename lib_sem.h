@@ -2,6 +2,7 @@
 * fichero:  lib_sem.h                     *
 * Objetivo: Usar como fichero de cabecera *
 ******************************************/
+#include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/ipc.h>

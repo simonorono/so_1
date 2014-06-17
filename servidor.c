@@ -77,7 +77,8 @@ int main(void)
 
     while (!terminado) {
         msgrcv(shmsg_id, (void *)&msg, sizeof(mensaje), 1, 0);
-        int estado = 1;//VERIFICAR TABLERO
+
+        int estado = verificar_tablero(buffer);
 
         if (estado != -1)
             terminado = 1;
