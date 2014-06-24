@@ -71,6 +71,11 @@ int main(void)
     }
 
     buffer = (tablero *)shmat(shmem_id, 0, 0);
+    /*
+     * Se inicializa todo en -1.
+     * Una jugada de X se llena con 0.
+     * Una jugada de Y se llena con 1.
+     */
     for (i = 0; i < 3; i++)
         for (j = 0; j < 3; j++)
             buffer->valores[i][j] = -1;
