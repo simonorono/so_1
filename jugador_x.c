@@ -38,6 +38,7 @@ int main(void)
         fflush(stdin);
         scanf("%d,%d", &x, &y);
         jugada(x, y, juego);
+        i++;
 
         signal_sem(shsem_id, sem_o);
     }
