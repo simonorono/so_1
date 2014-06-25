@@ -52,6 +52,15 @@ int verificar_tablero(tablero* tab)
         return -1;
 }
 
+void print_tablero(tablero* buff) {
+    int i, j;
+    for (i = 0; i < 3; i++) {
+        for (j = 0; j < 3; j++)
+            printf("[%d]", buff->valores[i][j]);
+        printf("\n");
+    }
+}
+
 int main(void)
 {
     mensaje msg;
@@ -66,7 +75,7 @@ int main(void)
 
     int shmsg_id = msgget(KEY, IPC_CREAT | 0666);
     if (shmsg_id == -1) {
-        printf("Error shmmsg\n");
+        printf("Error shmmsg_id\n");
         exit(-1);
     }
 
@@ -80,6 +89,7 @@ int main(void)
         for (j = 0; j < 3; j++)
             buffer->valores[i][j] = -1;
 
+    i = 1;
     while (!terminado) {
         msgrcv(shmsg_id, (void *)&msg, sizeof(mensaje), 1, 0);
 
@@ -87,6 +97,10 @@ int main(void)
 
         if (estado != -1)
             terminado = 1;
+
+        printf("Turno: %d\nTerminado: %d\n", i, terminado);
+        print_tablero(buffer);
+        i++;
 
         (&msg)->tipo = 2;
         (&msg)->msg = estado;
@@ -98,6 +112,7 @@ int main(void)
     }
 
     printf("Partida terminada\n");
+    shmctl(shmem_id, 0, 0);
     return 0;
 }
 
