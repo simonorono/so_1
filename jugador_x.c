@@ -6,6 +6,7 @@ int jugada(int x, int y, tablero* juego);
 int main(void)
 {
     tablero *juego;
+    mensaje msg;
 
     int terminado = 0;
 
@@ -37,13 +38,24 @@ int main(void)
     while (!terminado) {
         wait_sem(shsem_id, sem_x);
 
+        int rv = msgrcv(shmsg_id, &msg, msgsize, 2, IPC_NOWAIT);
+        if (rv != -1) {
+            if (msg.msg == 2) {
+                printf("Empate\n");
+                break;
+            }
+            else {
+                printf("Gano O");
+                break;
+            }
+        }
+
         printf("Turno %d de X:\n", i);
         printf("Ingrese la posicion de su jugada: ");
         fflush(stdin);
         scanf("%d,%d", &x, &y);
 
         if (jugada(x, y, juego)) {
-            mensaje msg;
             msg.tipo = 1;
             msg.msg = 0;
             msgsnd(shmsg_id, &msg, msgsize, 0);
@@ -51,12 +63,15 @@ int main(void)
             while (msgrcv(shmsg_id, &msg, msgsize, 2, IPC_NOWAIT) == -1) {
                 sleep(1);
             }
-            printf("MSG: %d\n", msg.msg);
 
             if (msg.msg != -1) {
-                printf("%d\n", msg.msg);
-                printf("Gano X.");
-                exit(0);
+                if (msg.msg == 2) {
+                    printf("Empate.\n");
+                }
+                else {
+                    printf("Gano X.\n");
+                }
+                terminado = 1;
             }
         }
 
@@ -64,6 +79,7 @@ int main(void)
 
         signal_sem(shsem_id, sem_o);
     }
+    borra_sem(shsem_id);
 }
 
 int jugada(int x, int y, tablero* juego) {

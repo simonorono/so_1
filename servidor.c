@@ -102,6 +102,7 @@ int main(void)
 
         if (estado != -1)
             terminado = 1;
+        printf("Estado: %d\n", estado);
 
         printf("Turno: %d\nTerminado: %d\n", i, terminado);
         print_tablero(buffer);
@@ -117,7 +118,8 @@ int main(void)
     }
 
     printf("Partida terminada\n");
-    shmctl(shmem_id, 0, 0);
+    shmctl(shmem_id, IPC_RMID, 0);
+
     return 0;
 }
 
