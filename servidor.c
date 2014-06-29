@@ -15,15 +15,15 @@ int verificar_tablero(tablero* tab)
 
     for (i = 0; i < 3; i++)
     {
-    if ((tab->valores[i][0] == tab->valores[i][1]) &&
-            (tab->valores[i][0] == tab->valores[i][2]) &&
-            (tab->valores[i][0] != -1))
+        if ((tab->valores[i][0] == tab->valores[i][1]) &&
+                (tab->valores[i][0] == tab->valores[i][2]) &&
+                (tab->valores[i][0] != -1))
             return tab->valores[i][0]; //Si los 3 valores son iguales y distintos de -1 en una fila hay ganador
         else
         {
             if ((tab->valores[i][0] == -1) ||
-                (tab->valores[i][1] == -1) ||
-                (tab->valores[i][2] == -1))
+                    (tab->valores[i][1] == -1) ||
+                    (tab->valores[i][2] == -1))
                 full = 0; //Se encontró un -1 => Se puede continuar
 
             //Si no es la primera vez se pueden verificar las diagonales
