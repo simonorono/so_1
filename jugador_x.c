@@ -45,9 +45,10 @@ int main(void)
                 break;
             }
             else {
-                printf("Gano O");
+                printf("Gano O\n");
                 break;
             }
+            msgctl(shmsg_id, IPC_RMID, 0);
         }
 
         printf("Turno %d de X:\n", i);
