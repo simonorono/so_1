@@ -74,9 +74,9 @@ int main()
     }
     printf("\nConectado a memoria2");
 
-//    printf("\nHaciendo signal a SEM_P1");
+    //    printf("\nHaciendo signal a SEM_P1");
     signal_sem(semid, SEM_P1);
-//    printf("\nEntrando en el bucle");
+    //    printf("\nEntrando en el bucle");
 
 
     while(1)
@@ -95,12 +95,12 @@ int main()
         // (al que no tiene el turno)
         if(turno%2 == 0)
         {
-//            printf("\nSignal SEM_P1");
+            //            printf("\nSignal SEM_P1");
             signal_sem(semid, SEM_P1);
         }
         else
         {
-//            printf("\nSignal SEM_P2");
+            //            printf("\nSignal SEM_P2");
             signal_sem(semid, SEM_P2);
         }
     }

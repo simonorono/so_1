@@ -68,9 +68,9 @@ int main()
 
     shmdt(tab);
 
-//    printf("Esperando que el Jugador 2 llene su tablero...");
-//    signal_sem(semid, SEM_P2);
-//    wait_sem(semid, SEM_P1);
+    //    printf("Esperando que el Jugador 2 llene su tablero...");
+    //    signal_sem(semid, SEM_P2);
+    //    wait_sem(semid, SEM_P1);
 
     printf("\nEsperando al monitor");
     wait_sem(semid, SEM_P1);
@@ -90,9 +90,9 @@ int main()
         preg.y = y;
 
         msgsnd(msgQ, &preg, sizeof(pregunta) - sizeof(long), IPC_NOWAIT);
-//        printf("\nEsperando respuesta\n");
+        //        printf("\nEsperando respuesta\n");
         msgrcv(msgQ, &resp, sizeof(respuesta) - sizeof(long), 2, 0);
-//        printf("\nRespuesta recibida");
+        //        printf("\nRespuesta recibida");
 
         printf("\nPuntos obtenidos: %d\n\n", resp.valor);
         puntuacion += resp.valor;
@@ -103,21 +103,21 @@ int main()
         /*Modo Pasivo*/
         printf("Espera tu turno...\n");
         msgrcv(msgQ, &preg, sizeof(pregunta) - sizeof(long), 1, 0);
-//        printf("\nPregunta recibida");
+        //        printf("\nPregunta recibida");
 
         tab = (tablero*) shmat(tabMemID, 0, 0);
         int val = tab->valores[preg.x][preg.y];
         tab->valores[preg.x][preg.y] = -1;
         shmdt(tab);
 
-//        printf("\nSignal SEM_MON");
+        //        printf("\nSignal SEM_MON");
         signal_sem(semid, SEM_MON);
-//        printf("\nWait SEM_P1");
+        //        printf("\nWait SEM_P1");
         wait_sem(semid, SEM_P1);
         resp.valor = val;
-//        printf("\nEnviando respuesta");
+        //        printf("\nEnviando respuesta");
         msgsnd(msgQ, &resp, sizeof(respuesta) - sizeof(long), 0);
-//        printf("\nRespuesta enviada");
+        //        printf("\nRespuesta enviada");
 
     }
 

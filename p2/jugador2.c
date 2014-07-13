@@ -67,9 +67,9 @@ int main()
     }
     shmdt(tab);
 
-//    printf("Esperando que el Jugador 1 llene su tablero...");
-//    signal_sem(semid, SEM_P1);
-//    wait_sem(semid, SEM_P2);
+    //    printf("Esperando que el Jugador 1 llene su tablero...");
+    //    signal_sem(semid, SEM_P1);
+    //    wait_sem(semid, SEM_P2);
 
     while(turno < 3)
     {
@@ -79,7 +79,7 @@ int main()
         /*Modo Pasivo*/
         printf("\nEspera tu turno...\n");
         msgrcv(msgQ, &preg, sizeof(pregunta) - sizeof(long), 1, 0);
-//        printf("\nPregunta recibida\n");
+        //        printf("\nPregunta recibida\n");
 
         tab = (tablero*) shmat(tabMemID, 0, 0);
         int val = tab->valores[preg.x][preg.y];
@@ -88,9 +88,9 @@ int main()
         signal_sem(semid, SEM_MON);
         wait_sem(semid, SEM_P2);
         resp.valor = val;
-//        printf("\nRespondiendo");
+        //        printf("\nRespondiendo");
         msgsnd(msgQ, &resp, sizeof(respuesta) - sizeof(long), 0);
-//        printf("\nRespuesta enviada");
+        //        printf("\nRespuesta enviada");
 
 
 
