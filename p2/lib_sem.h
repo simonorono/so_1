@@ -6,6 +6,7 @@
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/sem.h>
+#include <stdio.h>
 /* Los semáforos se crearan con los mismos permisos */
 #define PERMISOS 0666
 

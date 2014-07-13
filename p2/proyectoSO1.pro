@@ -19,5 +19,9 @@ HEADERS +=\
     proyecto.h
 
 SOURCES += \
-    jugador.c \
-    monitor.c
+    monitor.c \
+    jugador1.c \
+    jugador2.c
+
+OTHER_FILES += \
+    CMakeLists.txt
